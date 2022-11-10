@@ -28,6 +28,7 @@ function App() {
     libraries: ["drawing", "geometry"],
   })
   // State ***************************************************************
+  const [menu, setMenu] = useState(false)
   const [markers, setMarkers] = useState<Coords[]>([])
   const [perimeter, setPerimeter] =
     useState<Perimeter | null>({ poly: [], circle: [], type: "" })
@@ -35,6 +36,7 @@ function App() {
 
   // Fn ***************************************************************
   // handles
+  const handleShowMenu = () => setMenu(st => !st)
   const handleSetMarker = (coords: Coords) => {
     setMarkers(st => [...st, coords])
   }
@@ -162,38 +164,48 @@ function App() {
         {/* End map container */}
       </div>
       {/* Right sidebar */}
-      <div className="r-sidebar">
-        <header>
-          <img src="https://github.com/araujrafael.png" alt="avatar" />
-          <div className="content">
-            <h1>Hi, I'm Rafael Araujo</h1>
-            <p>I will show to you a simple demo of Google maps with React</p>
-          </div>
-        </header>
-        {/* manual  */}
-        <h1 className="doc">
+      <div className="r-sidebar"
+        style={{
+          left: menu ? "0px" : "-280px"
+        }}
+      >
+        <div className="close" onClick={handleShowMenu}>
+          {menu ? "<" : ">"}
+        </div>
+        <div className="wrap-content">
           <header>
-            How to use
+            <img src="https://github.com/araujrafael.png" alt="avatar" />
+            <div className="content">
+              <h1>Hi, I'm Rafael Diniz ⚡</h1>
+              <p>I will show to you a simple demo of Google maps with React</p>
+              <a href="https://github.com/araujRafael/DEMO_REACT_GOOGLE_MAPS">Source Code</a>
+            </div>
           </header>
-          <p>
-            Left click anywhere on the map to set a marker,
-            to remove click on the bookmark again.
-            Use shapes to draw a perimeter and show the markers within it
-          </p>
-        </h1>
-        {/*  */}
-        <main>
-          <button
-            onClick={() => setPerimeter({ type: "", circle: [], poly: [] })}
-          >
-            Clear Perimeter
-          </button>
-          <button
-            onClick={() => setMarkers([])}
-          >
-            Clear Markers
-          </button>
-        </main>
+          {/* manual  */}
+          <h1 className="doc">
+            <header>
+              How to use
+            </header>
+            <p>
+              Left click anywhere on the map to set a marker,
+              to remove click on the bookmark again.
+              Use shapes to draw a perimeter and show the markers within it
+            </p>
+          </h1>
+          {/*  */}
+          <main>
+            <button
+              onClick={() => setPerimeter({ type: "", circle: [], poly: [] })}
+            >
+              Clear Perimeter
+            </button>
+            <button
+              onClick={() => setMarkers([])}
+            >
+              Clear Markers
+            </button>
+          </main>
+        </div>
       </div>
     </div>
   );
